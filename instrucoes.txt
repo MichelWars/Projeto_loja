@@ -1,0 +1,46 @@
+para importar o projeto é necessário:
+
+fazer download e instalação:
+
+    -python preferencialmente versão 3.12.5(instalação customizada com todos itens selecionados)
+
+    -git
+
+        após instalação do git abrir prompt de comando(Windows R, digitar cmd e dar enter)
+
+        no cmd digitar git (enter) git config --global user.name "seu nick do git" (enter) git config --global user.email "seu email do git" (enter) git config --list(enter e ver se deu certo)
+
+    -Vscode
+
+        após instalar vscode abrir o painel de extensões e instalar
+
+            python 
+            django 
+            github push 
+            github actions 
+            SQLite Viewer 
+
+            opcionais para melhor visualização:
+            material icon theme 
+            portuguese brazil 
+            dracula at nigth(tema dark) 
+            codeium (ia de preenchimento)
+
+        ir na aba de contas e logar sua conta do github
+
+        ctrl shift p
+
+        digitar git clone enter e colar a url do Repositório e sincronizar
+            https://github.com/MichelWars/Projeto_loja.git
+
+        no terminal do vscode
+            python -m venv venv (criar o ambiente virtual)
+
+            .\venv\Scripts\activate (para ativar a venv) (caso não rode é necessario rodar o comando Set-ExecutionPolicy Unrestricted no power shell como administrador)
+
+            python -m pip install -r requirements.txt (para instalar as bibliotecas)
+
+            python manage.py makemigrations(marcar alterações no banco de dados)
+            python manage.py migrate(executar alterações no banco de dados)
+            python manage.py createsuperuser(criar usuario administrador do sistema)
+            python manage.py runserver (executar o servidor)
