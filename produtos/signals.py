@@ -4,7 +4,6 @@ from django.dispatch import receiver
 from produtos.models import Produto, ProdutoInventory
 
 
-
 # def produto_inventory_update():
 #     produto_count = Produto.objects.all().count()
 #     produto_value = Produto.objects.aggregate(
@@ -16,9 +15,6 @@ from produtos.models import Produto, ProdutoInventory
 #     )
 
 
-
-
-
 # @receiver(post_save, sender=Produto)
 # def produto_post_save(sender, instance, **kwargs):
 #     produto_inventory_update()
@@ -28,9 +24,9 @@ from produtos.models import Produto, ProdutoInventory
 # def produto_post_delete(sender, instance, **kwargs):
 #     produto_inventory_update()
 
-
+# Essa signal coloca uma foto generica caso o usuario tente salvar o produto sem foto
 @receiver(pre_save, sender=Produto)
 def produto_pre_save(sender, instance, **kwargs):
-        
+
     if not instance.foto:
         instance.foto = "produtos/sem_imagem.png"

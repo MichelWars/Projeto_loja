@@ -1,5 +1,7 @@
 from django.db import models
 
+
+# Essa choice fornece opções fixas de itens para o campo CONSOLE
 CONSOLE_CHOICES = (
     ('PS4', 'Playstation 4'),
     ('PS5', 'Playstation 5'),
@@ -8,12 +10,14 @@ CONSOLE_CHOICES = (
     ('SWITCH', 'Nintendo Switch'),
 )
 
+
+# Essa classe representa produtos no banco de dados
 class Produto(models.Model):
     id = models.AutoField(primary_key=True)
     titulo = models.CharField(max_length=200)
     console = models.CharField(
         max_length=100,
-        choices=CONSOLE_CHOICES, # campo choice abre uma lista de opções para selecionar
+        choices=CONSOLE_CHOICES,
         blank=True,
         null=True,
     )
@@ -26,6 +30,7 @@ class Produto(models.Model):
         return self.titulo
 
 
+# Essa classe representa o inventário de produtos
 class ProdutoInventory(models.Model):
     produto_count = models.IntegerField()
     produto_value = models.FloatField()
@@ -33,6 +38,6 @@ class ProdutoInventory(models.Model):
 
     class Meta:
         ordering = ['-created_at']
-    
+
     def __str__(self):
         return f'{self.produto_count} - {self.produto_value}'

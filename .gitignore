@@ -1,5 +1,6 @@
 venv
 db.sqlite3
 media
-__pycache
+__pycache__
 migrations
+.flake8

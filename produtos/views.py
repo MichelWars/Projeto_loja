@@ -6,6 +6,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 
 
+# view para catalogo
 class ProdutosListView(ListView):
     model = Produto
     template_name = 'catalogo.html'
@@ -19,11 +20,13 @@ class ProdutosListView(ListView):
         return produto
 
 
+# view para detalhes do produtos
 class ProdutosDetailView(DetailView):
     model = Produto
     template_name = 'prod_detail.html'
 
 
+# view para cadastrar produtos
 @method_decorator(login_required(login_url='login'), name='dispatch')
 class CadProdutoCreateView(CreateView):
     model = Produto
@@ -32,6 +35,7 @@ class CadProdutoCreateView(CreateView):
     success_url = '/catalogo/'
 
 
+# view para atualizar produtos
 @method_decorator(login_required(login_url='login'), name='dispatch')
 class ProdutoUpdateView(UpdateView):
     model = Produto
@@ -42,6 +46,7 @@ class ProdutoUpdateView(UpdateView):
         return reverse_lazy('prod_detail', kwargs={'pk': self.object.pk})
 
 
+# view para deletar produtos
 @method_decorator(login_required(login_url='login'), name='dispatch')
 class ProdutoDeleteView(DeleteView):
     model = Produto

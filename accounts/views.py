@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 
 
+# view para registro de usuarios
 def register_view(request):
     if request.method == "POST":
         user_form = UserCreationForm(request.POST)
@@ -14,6 +15,7 @@ def register_view(request):
     return render(request, 'register.html', {'user_form': user_form})
 
 
+# view para login
 def login_view(request):
     if request.method == "POST":
         username = request.POST["username"]
@@ -29,6 +31,7 @@ def login_view(request):
     return render(request, 'login.html', {'login_form': login_form})
 
 
+# view para logout
 def logout_view(request):
     logout(request)
     return redirect('catalogo')
