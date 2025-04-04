@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+    table {
+        border-collapse: collapse;
+        margin: 0 auto;
+        /* Centraliza a tabela horizontalmente */
+        width: 80%;
+        /* Ajuste a largura conforme necessário */
+    }
+
+    th,
+    td {
+        border: 1px solid #ddd;
+        /* Adiciona bordas às células */
+        padding: 8px;
+        /* Espaçamento interno das células */
+        text-align: center;
+        /* Centraliza o texto */
+    }
+
+    th {
+        background-color: #f4f4f4;
+        /* Cor de fundo para o cabeçalho */
+        font-weight: bold;
+        /* Negrito no cabeçalho */
+    }
+
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+        /* Cor de fundo alternada para linhas pares */
+    }
+
+    tr:hover {
+        background-color: #f1f1f1;
+        /* Cor de fundo ao passar o mouse */
+    }
+</style>
+
+<main>
+    <table>
+        <tr>
+            <th>Quantidade de itens em estoque</th>
+            <th>Valor total do estoque</th>
+        </tr>
+
+        {% for item in estoque %}
+        <tr>
+            <td>{{ item.contador_produtos }}</td>
+            <td>{{ item.valor_estoque }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</main>
+{% endblock %}

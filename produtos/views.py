@@ -1,9 +1,11 @@
-from produtos.models import Produto
+from produtos.models import Produto, ProdutoInventario
 from produtos.forms import ProdModelForm
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
+from django.shortcuts import render
+
 
 
 # view para catalogo
@@ -52,3 +54,9 @@ class ProdutoDeleteView(DeleteView):
     model = Produto
     template_name = 'prod_delete.html'
     success_url = '/catalogo/'
+
+
+
+def estoque_view(request):
+    contagem = ProdutoInventario.objects.values('contador_produtos', 'valor_estoque')
+    return render(request, 'estoque.html', {'estoque': contagem})

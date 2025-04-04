@@ -31,13 +31,13 @@ class Produto(models.Model):
 
 
 # Essa classe representa o inventário de produtos
-class ProdutoInventory(models.Model):
-    produto_count = models.IntegerField()
-    produto_value = models.FloatField()
-    created_at = models.DateTimeField(auto_now_add=True)
+class ProdutoInventario(models.Model):
+    contador_produtos = models.IntegerField()
+    valor_estoque = models.FloatField()
+    data_atualizacao = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ['-created_at']
+        ordering = ['-data_atualizacao']
 
     def __str__(self):
-        return f'{self.produto_count} - {self.produto_value}'
+        return f'{self.contador_produtos} - {self.valor_estoque}'
