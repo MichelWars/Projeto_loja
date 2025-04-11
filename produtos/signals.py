@@ -3,7 +3,7 @@ from django.db.models import Sum
 from django.dispatch import receiver
 from produtos.models import Produto, ProdutoInventario
 
-
+# Essa signal atualiza o estoque sempre que um produto for adicionado ou removido
 def produto_inventory_update():
     contador_produtos = Produto.objects.all().count()
     valor_estoque = Produto.objects.aggregate(
@@ -14,12 +14,12 @@ def produto_inventory_update():
         valor_estoque=valor_estoque
     )
 
-
+# Essa signal atualiza o estoque sempre que um produto for adicionado ou removido
 @receiver(post_save, sender=Produto)
 def produto_post_save(sender, instance, **kwargs):
     produto_inventory_update()
 
-
+# Essa signal atualiza o estoque sempre que um produto for adicionado ou removido
 @receiver(post_delete, sender=Produto)
 def produto_post_delete(sender, instance, **kwargs):
     produto_inventory_update()

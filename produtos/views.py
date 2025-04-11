@@ -1,12 +1,13 @@
 from produtos.models import Produto, ProdutoInventario
 from produtos.forms import ProdModelForm
 from django.urls import reverse_lazy
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 from django.shortcuts import render
 
-
+#filtra usuarios administrador para usar no decorator
+admin_required = user_passes_test(lambda u: u.is_staff or u.is_superuser, login_url='login')
 
 # view para catalogo
 class ProdutosListView(ListView):
@@ -29,7 +30,8 @@ class ProdutosDetailView(DetailView):
 
 
 # view para cadastrar produtos
-@method_decorator(login_required(login_url='login'), name='dispatch')
+@method_decorator(admin_required, name='dispatch')
+# @method_decorator(login_required(login_url='login'), name='dispatch')
 class CadProdutoCreateView(CreateView):
     model = Produto
     form_class = ProdModelForm
@@ -38,7 +40,8 @@ class CadProdutoCreateView(CreateView):
 
 
 # view para atualizar produtos
-@method_decorator(login_required(login_url='login'), name='dispatch')
+#@method_decorator(login_required(login_url='login'), name='dispatch')
+@method_decorator(admin_required, name='dispatch')
 class ProdutoUpdateView(UpdateView):
     model = Produto
     form_class = ProdModelForm
@@ -49,14 +52,19 @@ class ProdutoUpdateView(UpdateView):
 
 
 # view para deletar produtos
-@method_decorator(login_required(login_url='login'), name='dispatch')
+#@method_decorator(login_required(login_url='login'), name='dispatch')
+@method_decorator(admin_required, name='dispatch')
 class ProdutoDeleteView(DeleteView):
     model = Produto
     template_name = 'prod_delete.html'
     success_url = '/catalogo/'
 
 
+@method_decorator(admin_required, name='dispatch')
+class EstoqueView(ListView):
+    model = ProdutoInventario
+    template_name = 'estoque.html' 
+    context_object_name = 'estoque'
 
-def estoque_view(request):
-    contagem = ProdutoInventario.objects.values('contador_produtos', 'valor_estoque')
-    return render(request, 'estoque.html', {'estoque': contagem})
+    def get_queryset(self):
+        return ProdutoInventario.objects.all()[:1]
