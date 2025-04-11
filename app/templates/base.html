@@ -107,7 +107,7 @@
   <header>
     <nav>
       <ul>
-        {% if user.is_authenticated %}
+        {% if user.is_superuser %}
         <li>Olá, {{ user.username }}</li>
         <li><a href="{% url 'cad_prod' %}">Cadastrar Produto</a></li>
         <li><a href="{% url 'estoque' %}">Estoque</a></li>
