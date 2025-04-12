@@ -2,29 +2,127 @@
 
 {% block content %}
 
-<form method="post">
+<style>
+    main {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+form {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+    color: #333;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"] {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #1976d2;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #125ea9;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #1976d2;
+    box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.2);
+}
+</style>
+
+
+<h2>Cadastro</h2>
+<form method="post" autocomplete="off">
     {% csrf_token %}
+
     <div class="form-group">
-        {{ user_form.username.errors }}
-        <label>Usuário: </label>
-        {{ user_form.username }}
+        {{ user_form.email.errors }}
+        <label for="id_email">E-mail:</label>
+        {{ user_form.email }}
     </div>
 
     <div class="form-group">
         {{ user_form.password1.errors }}
-        <label>Senha: </label>
+        <label for="id_password1">Senha:</label>
         {{ user_form.password1 }}
     </div>
 
     <div class="form-group">
         {{ user_form.password2.errors }}
-        <label>Confirmação de senha: </label>
+        <label for="id_password2">Confirme a senha:</label>
         {{ user_form.password2 }}
+    </div>
+
+    <div class="form-group">
+        {{ user_form.nome.errors }}
+        <label for="id_nome">Nome:</label>
+        {{ user_form.nome }}
+    </div>
+
+    <div class="form-group">
+        {{ user_form.sobrenome.errors }}
+        <label for="id_sobrenome">Sobrenome:</label>
+        {{ user_form.sobrenome }}
+    </div>
+
+    <div class="form-group">
+        {{ user_form.cpf.errors }}
+        <label for="id_cpf">CPF:</label>
+        {{ user_form.cpf }}
+    </div>
+
+    <div class="form-group">
+        {{ user_form.telefone.errors }}
+        <label for="id_telefone">Telefone:</label>
+        {{ user_form.telefone }}
+    </div>
+
+    <div class="form-group">
+        {{ user_form.data_nascimento.errors }}
+        <label for="id_data_nascimento">Data de nascimento:</label>
+        {{ user_form.data_nascimento }}
     </div>
 
     <div class="form-group">
         <input type="submit" value="Cadastrar">
     </div>
 </form>
-
 {% endblock %}
