@@ -107,8 +107,12 @@
   <header>
     <nav>
       <ul>
-        {% if user.is_superuser %}
+        {% if user.is_authenticated and user.is_superuser %}
         <li>Olá, {{ user.username }}</li>
+        {% elif user.is_authenticated %}
+        <li>Olá, {{ user.cliente.nome }}</li>
+        {% endif %}
+        {% if user.is_superuser %}
         <li><a href="{% url 'cad_prod' %}">Cadastrar Produto</a></li>
         <li><a href="{% url 'estoque' %}">Estoque</a></li>
         {% endif %}
