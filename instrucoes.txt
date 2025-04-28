@@ -44,3 +44,4 @@ fazer download e instalação:
             python manage.py migrate(executar alterações no banco de dados)
             python manage.py createsuperuser(criar usuario administrador do sistema)
             python manage.py runserver (executar o servidor).
+testetstetse
