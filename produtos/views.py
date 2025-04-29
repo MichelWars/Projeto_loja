@@ -16,11 +16,11 @@ class ProdutosListView(ListView):
     context_object_name = 'produtos'
 
     def get_queryset(self):
-        produto = super().get_queryset().order_by('titulo')
-        search = self.request.GET.get('search')
-        if search:
-            produto = produto.filter(model__icontains=search)
-        return produto
+        queryset = super().get_queryset()
+        titulo = self.request.GET.get('titulo')
+        if titulo:
+            queryset = queryset.filter(titulo__icontains=titulo)
+        return queryset
 
 
 # view para detalhes do produtos
