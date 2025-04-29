@@ -85,7 +85,8 @@
     {% else %}
       <p class="no-photo">Foto não disponível</p>
     {% endif %}
-    <h2>{{ object.console }} {{ object.titulo }}</h2>
+    <h2>{{ object.titulo }}</h2>
+    <h3>Console: {{ object.console }}</h3>
     <p><strong>Ano de lançamento:</strong> {{ object.ano_lancamento }}</p>
     <p><strong>Preço:</strong> R$ {{ object.valor }}</p>
     {% if object.descricao %}

@@ -118,8 +118,9 @@
             {% else %}
               <p class="no-photo">Foto não disponível</p>
             {% endif %}
-            <h2>{{ produto.console }} {{ produto.titulo }}</h2>
-            <p>{{ produto.ano_lancamento }} - R$ {{ produto.valor }}</p>
+            <h2>{{ produto.titulo }}</h2>
+            <h3>Console: {{ produto.console }}</h3>
+            <h3>R$ {{ produto.valor }}</h3>
           </div>
         </a>
       {% endfor %}
