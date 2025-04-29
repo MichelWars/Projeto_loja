@@ -32,8 +32,8 @@ class Produto(models.Model):
 
 # Essa classe representa o inventário de produtos
 class ProdutoInventario(models.Model):
-    contador_produtos = models.IntegerField()
-    valor_estoque = models.FloatField()
+    contador_produtos = models.IntegerField(default=0, null=True)
+    valor_estoque = models.FloatField(default=0, null=True)
     data_atualizacao = models.DateTimeField(auto_now_add=True)
 
     class Meta:
