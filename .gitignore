@@ -4,3 +4,6 @@ media
 __pycache__
 migrations
 .flake8
+__pycache__/
+/__pycache__
+*__pycache__

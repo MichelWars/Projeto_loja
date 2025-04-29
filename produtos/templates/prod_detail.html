@@ -92,7 +92,7 @@
       <p><strong>Descricao:</strong> {{ object.descricao }}</p>
     {% endif %}
   </div>
-  {% if user.is_authenticated %}
+  {% if user.is_authenticated and user.is_superuser %}
     <div class="buttons-container">
       <a href="{% url 'prod_update' pk=object.pk %}" class="btn btn-primary">Editar</a>
       <a href="{% url 'prod_delete' pk=object.pk %}" class="btn btn-danger">Deletar</a>
