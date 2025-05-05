@@ -8,7 +8,9 @@ fazer download e instalação:
 
         após instalação do git abrir prompt de comando(Windows R, digitar cmd e dar enter)
 
-        no cmd digitar git (enter) git config --global user.name "seu nick do git" (enter) git config --global user.email "seu email do git" (enter) git config --list(enter e ver se deu certo)
+        no cmd digitar git (enter) git config --global user.name "seu nick do git" (enter) 
+git config --global user.email "seu email do git" (enter) 
+git config --list(enter e ver se deu certo)
 
     -Vscode
 
