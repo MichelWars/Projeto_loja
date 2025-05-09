@@ -119,6 +119,8 @@
         {% if user.is_superuser %}
         <li><a href="{% url 'cad_prod' %}">Cadastrar Produto</a></li>
         <li><a href="{% url 'estoque' %}">Estoque</a></li>
+        <li><a href="{% url 'entrada_create' %}">Entrada de Mercadorias</a></li>
+        <li><a href="{% url 'entrada_historico' %}">Historico de entradas</a></li>
         {% endif %}
         {% if not user.is_authenticated %}
         <li><a href="{% url 'register' %}">Cadastre-se</a></li>
@@ -140,9 +142,8 @@
       {% endblock %}
     </main>
   </div>
-  <footer>
-    <p>&copy; Todos os direitos reservados</p>
-  </footer>
+  {% include 'components/_footer.html' %}
+
 </body>
 
 </html>
