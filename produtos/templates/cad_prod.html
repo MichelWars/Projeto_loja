@@ -11,7 +11,8 @@ Cadastrar Produto
         <table>
             {{ form.as_table }}
         </table>
-
+        
         <input type="submit" value="Cadastrar" class="btn btn-primary">
+        <a href="{% url 'catalogo' %}" class="btn btn-secondary mt-1">Cancelar e Voltar</a>
     </form>
 {% endblock %}
