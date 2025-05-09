@@ -4,6 +4,7 @@ from django.dispatch import receiver
 from produtos.models import Produto, ProdutoInventario
 
 
+# Essa signal atualiza o estoque sempre que um produto for adicionado ou removido
 def produto_inventario_update():
     # Soma total de todas as quantidades
     contador_produtos = Produto.objects.aggregate(
