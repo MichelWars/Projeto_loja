@@ -44,16 +44,43 @@ Inventario
 </style>
 
 <main>
-    <table>
+    <div class="table-responsive">
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>Quantidade de itens em estoque</th>
+                <th>Valor total do estoque</th>
+            </tr>
+            <tbody>
+            {% for item in estoque %}
+            <tr>
+                <td>{{ item.contador_produtos }}</td>
+                <td>R${{ item.valor_estoque }}</td>
+            </tr>
+            </thead>
+            {% endfor %}
+            </tbody>
+    </table>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Codigo</th>
+                    <th>Produto</th>
+                    <th>Console</th>
+                    <th>Quantidade em Estoque</th>
+                    <th>Valor Unitario</th>
+                </tr>
+        </thead>
+        <tbody>
+        {% for produto in produtos %}
         <tr>
-            <th>Quantidade de itens em estoque</th>
-            <th>Valor total do estoque</th>
-        </tr>
-
-        {% for item in estoque %}
-        <tr>
-            <td>{{ item.contador_produtos }}</td>
-            <td>{{ item.valor_estoque }}</td>
+            <td>{{ produto.id }}</td>
+            <td>{{ produto.titulo }}</td>
+            <td>{{ produto.console }}</td>
+            <td>{{ produto.quantidade }}</td>
+            <td>R${{ produto.valor }}</td>
         </tr>
         {% endfor %}
         </tbody>
