@@ -59,15 +59,6 @@ class ProdutoDeleteView(DeleteView):
     success_url = '/catalogo/'
 
 
-# @method_decorator(admin_required, name='dispatch')
-# class EstoqueView(ListView):
-#     model = ProdutoInventario
-#     template_name = 'estoque.html' 
-#     context_object_name = 'estoque'
-
-#     def get_queryset(self):
-#         return ProdutoInventario.objects.all()[:1]
-
 @method_decorator(admin_required, name='dispatch')
 class EstoqueView(TemplateView):
     template_name = 'estoque.html'
