@@ -6,18 +6,22 @@ from produtos.models import Produto
 class ProdModelForm(forms.ModelForm):
     class Meta:
         model = Produto
-        fields = '__all__'
-
-# validação de valor
-    # def clean_value(self):
-    #     value = self.cleaned_data.get('value')
-    #     if value < 20000:
-    #         self.add_error('value', 'Valor mínimo do carro deve ser de R$20.000')
-    #     return value
-
-# validação de ano
-    # def clean_factory_year(self):
-    #     factory_year = self.cleaned_data.get('factory_year')
-    #     if factory_year < 1975:
-    #         self.add_error('factory_year', 'Não é possível cadastrar carros fabricados antes de 1975')
-    #     return factory_year
+        fields = ['titulo', 'console', 'ano_lancamento', 'valor', 'foto', 'descricao']
+        # widgets = {
+        #     'titulo': forms.TextInput(attrs={'class': 'form-control'}),
+        #     'console': forms.Select(attrs={'class': 'form-control'}),
+        #     'brand': forms.Select(attrs={'class': 'form-control'}),
+        #     'descricao': forms.Textarea(attrs={'class': 'form-control', 'rows':1}),
+        #     'serie_number': forms.TextInput(attrs={'class': 'form-control'}),
+        #     'cost_price': forms.NumberInput(attrs={'class': 'form-control'}),
+        #     'selling_price': forms.NumberInput(attrs={'class': 'form-control'}),
+        # }
+        # labels = {
+        #     'titulo': 'Titulo',
+        #     'console': 'Categoria',
+        #     'brand': 'Marca',
+        #     'descricao': 'Descrição',
+        #     'serie_number': 'Numero de Serie',
+        #     'cost_price': 'Preço de Custo',
+        #     'selling_price': 'Preço de Venda',
+        # }

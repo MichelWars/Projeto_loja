@@ -3,7 +3,7 @@ from produtos.forms import ProdModelForm
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.utils.decorators import method_decorator
-from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
+from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView, TemplateView
 from django.shortcuts import render
 
 #filtra usuarios administrador para usar no decorator
@@ -52,7 +52,6 @@ class ProdutoUpdateView(UpdateView):
 
 
 # view para deletar produtos
-#@method_decorator(login_required(login_url='login'), name='dispatch')
 @method_decorator(admin_required, name='dispatch')
 class ProdutoDeleteView(DeleteView):
     model = Produto
@@ -60,11 +59,26 @@ class ProdutoDeleteView(DeleteView):
     success_url = '/catalogo/'
 
 
-@method_decorator(admin_required, name='dispatch')
-class EstoqueView(ListView):
-    model = ProdutoInventario
-    template_name = 'estoque.html' 
-    context_object_name = 'estoque'
+# @method_decorator(admin_required, name='dispatch')
+# class EstoqueView(ListView):
+#     model = ProdutoInventario
+#     template_name = 'estoque.html' 
+#     context_object_name = 'estoque'
 
-    def get_queryset(self):
-        return ProdutoInventario.objects.all()[:1]
+#     def get_queryset(self):
+#         return ProdutoInventario.objects.all()[:1]
+
+@method_decorator(admin_required, name='dispatch')
+class EstoqueView(TemplateView):
+    template_name = 'estoque.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Dados da tabela 1 (resumo do estoque)
+        context['estoque'] = ProdutoInventario.objects.all()[:1]
+
+        # Dados da tabela 2 (lista de produtos)
+        context['produtos'] = Produto.objects.all()
+
+        return context
