@@ -2,6 +2,7 @@ from django.db.models.signals import pre_save, post_save, post_delete
 from django.db.models import Sum, F
 from django.dispatch import receiver
 from produtos.models import Produto, ProdutoInventario
+from gemini_api.client import get_descricao_produto
 
 
 # Essa signal atualiza o estoque sempre que um produto for adicionado ou removido
@@ -37,3 +38,8 @@ def produto_pre_save(sender, instance, **kwargs):
 
     if not instance.foto:
         instance.foto = "produtos/sem_imagem.png"
+
+# cadastra um descricao automatica para o produto usando Gemini IA
+    if not instance.descricao:
+        ai_bio = get_descricao_produto(instance.titulo, instance.console, instance.ano_lancamento)
+        instance.descricao = ai_bio
