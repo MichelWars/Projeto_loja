@@ -15,6 +15,7 @@ class EntradaCreateView(CreateView):
     form_class = forms.EntradaForm
     success_url = reverse_lazy('entrada_historico')
 
+@method_decorator(admin_required, name='dispatch')
 class EntradaListView(ListView):
     model = models.Entrada
     template_name = 'entrada.html'
