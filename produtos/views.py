@@ -1,10 +1,11 @@
-from produtos.models import Produto, ProdutoInventario
-from produtos.forms import ProdModelForm
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView, TemplateView
 from django.shortcuts import render
+from django.core.paginator import Paginator
+from produtos.models import Produto, ProdutoInventario
+from produtos.forms import ProdModelForm
 
 #filtra usuarios administrador para usar no decorator
 admin_required = user_passes_test(lambda u: u.is_staff or u.is_superuser, login_url='login')
@@ -14,6 +15,7 @@ class ProdutosListView(ListView):
     model = Produto
     template_name = 'catalogo.html'
     context_object_name = 'produtos'
+    paginate_by = 10
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -63,13 +65,22 @@ class ProdutoDeleteView(DeleteView):
 class EstoqueView(TemplateView):
     template_name = 'estoque.html'
 
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        # Dados da tabela 1 (resumo do estoque)
+        # Resumo do estoque (sem paginação)
         context['estoque'] = ProdutoInventario.objects.all()[:1]
 
-        # Dados da tabela 2 (lista de produtos)
-        context['produtos'] = Produto.objects.all()
+        # Paginação da lista de produtos
+        produtos = Produto.objects.all()
+        paginator = Paginator(produtos, 15)  # Mostra 15 por página
+
+        page_number = self.request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+
+        context['produtos'] = page_obj  # produtos agora é um Page object
+        context['page_obj'] = page_obj  # útil para paginação no template
 
         return context
+    
