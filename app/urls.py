@@ -5,10 +5,12 @@ from django.conf.urls.static import static
 from accounts.views import register_view, login_view, logout_view
 from produtos.views import ProdutosListView, CadProdutoCreateView, ProdutosDetailView, ProdutoUpdateView, ProdutoDeleteView, EstoqueView
 from entradas.views import EntradaCreateView, EntradaListView
+from django.views.generic import RedirectView
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', RedirectView.as_view(url='catalogo/', permanent=False)),
     path('register/', register_view, name='register'),
     path('login/', login_view, name='login'),
     path('logout/', logout_view, name='logout'),
