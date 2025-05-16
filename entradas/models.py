@@ -1,13 +1,14 @@
 from django.db import models
+
 from produtos.models import Produto
 
 
-
 class Entrada(models.Model):
-    produto = models.ForeignKey(Produto, on_delete=models.PROTECT, related_name='entradas')
+    produto = models.ForeignKey(
+        Produto, on_delete=models.PROTECT, related_name='entradas'
+    )
     quantidade = models.IntegerField()
     data_entrada = models.DateTimeField(auto_now_add=True)
-
 
     # ordenação por registros mais recentes
     class Meta:

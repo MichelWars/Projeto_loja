@@ -1,6 +1,5 @@
 from django.db import models
 
-
 # Essa choice fornece opções fixas de itens para o campo CONSOLE
 CONSOLE_CHOICES = (
     ('PS4', 'Playstation 4'),
@@ -26,7 +25,6 @@ class Produto(models.Model):
     foto = models.ImageField(upload_to='produtos/', blank=True, null=True)
     descricao = models.TextField(blank=True, null=True)
     quantidade = models.IntegerField(default=0)
-
 
     def __str__(self):
         return self.titulo

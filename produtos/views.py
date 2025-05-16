@@ -1,14 +1,24 @@
-from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required, user_passes_test
-from django.utils.decorators import method_decorator
-from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView, TemplateView
-from django.shortcuts import render
 from django.core.paginator import Paginator
-from produtos.models import Produto, ProdutoInventario
-from produtos.forms import ProdModelForm
+from django.shortcuts import render
+from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
+from django.views.generic import (
+    CreateView,
+    DeleteView,
+    DetailView,
+    ListView,
+    TemplateView,
+    UpdateView,
+)
 
-#filtra usuarios administrador para usar no decorator
-admin_required = user_passes_test(lambda u: u.is_staff or u.is_superuser, login_url='login')
+from produtos.forms import ProdModelForm
+from produtos.models import Produto, ProdutoInventario
+
+# filtra usuarios administrador para usar no decorator
+admin_required = user_passes_test(
+    lambda u: u.is_staff or u.is_superuser, login_url='login'
+)
 
 # view para catalogo
 class ProdutosListView(ListView):
@@ -42,7 +52,7 @@ class CadProdutoCreateView(CreateView):
 
 
 # view para atualizar produtos
-#@method_decorator(login_required(login_url='login'), name='dispatch')
+# @method_decorator(login_required(login_url='login'), name='dispatch')
 @method_decorator(admin_required, name='dispatch')
 class ProdutoUpdateView(UpdateView):
     model = Produto
@@ -65,7 +75,6 @@ class ProdutoDeleteView(DeleteView):
 class EstoqueView(TemplateView):
     template_name = 'estoque.html'
 
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
@@ -83,4 +92,3 @@ class EstoqueView(TemplateView):
         context['page_obj'] = page_obj  # útil para paginação no template
 
         return context
-    
