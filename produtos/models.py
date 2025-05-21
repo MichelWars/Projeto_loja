@@ -21,7 +21,9 @@ class Produto(models.Model):
         null=True,
     )
     ano_lancamento = models.IntegerField(blank=True, null=True)
-    valor = models.FloatField(blank=True, null=True)
+    valor = models.DecimalField(
+        blank=True, null=True, max_digits=20, decimal_places=2
+    )
     foto = models.ImageField(upload_to='produtos/', blank=True, null=True)
     descricao = models.TextField(blank=True, null=True)
     quantidade = models.IntegerField(default=0)
@@ -33,7 +35,9 @@ class Produto(models.Model):
 # Essa classe representa o inventário de produtos
 class ProdutoInventario(models.Model):
     contador_produtos = models.IntegerField(default=0, null=True)
-    valor_estoque = models.FloatField(default=0, null=True)
+    valor_estoque = models.DecimalField(
+        default=0, blank=True, null=True, max_digits=20, decimal_places=2
+    )
     data_atualizacao = models.DateTimeField(auto_now_add=True)
 
     class Meta:

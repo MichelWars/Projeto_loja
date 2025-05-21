@@ -6,14 +6,9 @@ from django.views.generic import RedirectView
 
 from accounts.views import login_view, logout_view, register_view
 from entradas.views import EntradaCreateView, EntradaListView
-from produtos.views import (
-    CadProdutoCreateView,
-    EstoqueView,
-    ProdutoDeleteView,
-    ProdutosDetailView,
-    ProdutosListView,
-    ProdutoUpdateView,
-)
+from produtos.views import (CadProdutoCreateView, EstoqueView,
+                            ProdutoDeleteView, ProdutosDetailView,
+                            ProdutosListView, ProdutoUpdateView)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

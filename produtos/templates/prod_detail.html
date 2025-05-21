@@ -5,102 +5,94 @@ Detalhes do produto
 {% endblock %}
 
 {% block content %}
-  <style>
-    .prod-prodd {
-      background-color: #000000;
-      box-shadow: 0 2px 6px rgba(0, 4, 255, 0.2);
-      border-radius: 10px;
-      overflow: hidden;
-      text-align: center;
-      transition: all 0.3s ease;
-      max-width: 500px;
-      margin: 20px auto 0;
-      margin-bottom: 20px;
-    }
+<style>
+  .prod-prodd {
+    background-color: #000000;
+    box-shadow: 0 2px 6px rgba(0, 4, 255, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    text-align: center;
+    transition: all 0.3s ease;
+    max-width: 500px;
+    margin: 20px auto 0;
+    margin-bottom: 20px;
+  }
 
-    .prod-prodd:hover {
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-      transform: translateY(-2px);
-    }
+  .prod-prodd:hover {
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    transform: translateY(-2px);
+  }
 
-    .prod-prodd img {
-      width: 100%;
-      height: auto;
-      object-fit: cover;
-    }
+  .prod-prodd img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
 
-    .prod-prodd h2 {
-      font-size: 1.5rem;
-      margin: 10px;
-    }
+  .prod-prodd h2 {
+    font-size: 1.5rem;
+    margin: 10px;
+  }
 
-    .prod-prodd p {
-      font-size: 1rem;
-      margin-bottom: 10px;
-    }
+  .prod-prodd p {
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
 
-    .buttons-container {
-      display: flex;
-      justify-content: center;
-      margin-top: 20px;
-      margin-bottom: 20px;
-    }
+  .buttons-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
 
-    .btn {
-      display: inline-block;
-      background-color: #0096c7;
-      color: #fff;
-      border: none;
-      padding: 10px 20px;
-      font-size: 16px;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background-color 0.3s ease-in-out;
-      margin: 0 10px;
-    }
 
-    .btn:hover {
-      background-color: #108eb8;
-    }
 
-    .btn-danger {
-      background-color: #d9534f;
-      text-decoration: none !important;
-    }
+  .btn:hover {
+    background-color: #108eb8;
+  }
 
-    .btn-danger:hover {
-      background-color: #d2221c;
-    }
+  .btn-danger {
+    background-color: #d9534f;
+    text-decoration: none !important;
+  }
 
-    .error-message {
-      color: #d9534f;
-      font-size: 14px;
-      margin-top: 5px;
-    }
+  .btn-danger:hover {
+    background-color: #d2221c;
+  }
 
-    a {
-      text-decoration: none !important;
-    }
-  </style>
-  <div class="prod-prodd">
-    {% if object.foto %}
-      <img src="{{ object.foto.url }}" alt="{{ object.titulo }} - {{ object.console }}">
-    {% else %}
-      <p class="no-photo">Foto não disponível</p>
-    {% endif %}
-    <h2>{{ object.titulo }}</h2>
-    <h3>Console: {{ object.console }}</h3>
-    <p><strong>Ano de lançamento:</strong> {{ object.ano_lancamento }}</p>
-    <p><strong>Preço:</strong> R$ {{ object.valor }}</p>
-    {% if object.descricao %}
-      <p><strong>Descricao:</strong> {{ object.descricao }}</p>
-    {% endif %}
-  </div>
-  {% if user.is_authenticated and user.is_superuser %}
-    <div class="buttons-container">
-      <a href="{% url 'prod_update' pk=object.pk %}" class="btn btn-primary">Editar</a>
-      <a href="{% url 'prod_delete' pk=object.pk %}" class="btn btn-danger">Deletar</a>
-    </div>
+  .error-message {
+    color: #d9534f;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+
+  a {
+    text-decoration: none !important;
+  }
+</style>
+<div class="prod-prodd">
+  {% if object.foto %}
+  <img src="{{ object.foto.url }}" alt="{{ object.titulo }} - {{ object.console }}">
+  {% else %}
+  <p class="no-photo">Foto não disponível</p>
   {% endif %}
+  <h2>{{ object.titulo }}</h2>
+  <h3>Console: {{ object.console }}</h3>
+  {% if object.ano_lancamento %}
+  <p><strong>Ano de lançamento:</strong> {{ object.ano_lancamento }}</p>
+  {% endif %}
+
+  <p><strong>Preço:</strong> R$ {{ object.valor }}</p>
+  {% if object.descricao %}
+  <p><strong>Descricao:</strong> {{ object.descricao }}</p>
+  {% endif %}
+</div>
+{% if user.is_authenticated and user.is_superuser %}
+<div class="buttons-container">
+  <a href="{% url 'prod_update' pk=object.pk %}" class="btn btn-primary">Editar</a>
+  <a href="{% url 'prod_delete' pk=object.pk %}" class="btn btn-danger">Deletar</a>
+</div>
+{% endif %}
 {% endblock %}

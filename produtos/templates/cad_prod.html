@@ -5,14 +5,17 @@ Cadastrar Produto
 {% endblock %}
 
 {% block content %}
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-
-        <table>
-            {{ form.as_table }}
-        </table>
-        
-        <input type="submit" value="Cadastrar" class="btn btn-primary">
-        <a href="{% url 'catalogo' %}" class="btn btn-secondary mt-1">Cancelar e Voltar</a>
-    </form>
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <h1>Cadastrar Produto</h1>
+  <table>
+    {{ form.as_table }}
+  </table>
+  <div>
+    <div class="buttons-container">
+      <input type="submit" value="Cadastrar" class="btn btn-primary">
+      <a href="{% url 'catalogo' %}" class="btn btn-secondary">Cancelar e Voltar</a>
+    </div>
+  </div>
+</form>
 {% endblock %}

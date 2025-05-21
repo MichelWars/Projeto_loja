@@ -32,15 +32,9 @@
       object-fit: cover;
     }
 
-    .prod-card h3 {
-        font-size: 1.3rem;
-        margin-top: 5px;
-        margin-bottom: 5px;
-    }
+    .prod-card h6 {
+        font-size: 1.0rem;
 
-    .prod-card h2 {
-      font-size: 1.3rem;
-      margin: 8px;
     }
 
     .prod-card p {
@@ -118,9 +112,9 @@
             {% else %}
               <p class="no-photo">Foto não disponível</p>
             {% endif %}
-            <h2>{{ produto.titulo }}</h2>
-            <h3>Console: {{ produto.console }}</h3>
-            <h3>R$ {{ produto.valor }}</h3>
+            <h6>{{ produto.titulo }}</h6>
+            <h6>Console: {{ produto.console }}</h6>
+            <h6>R$ {{ produto.valor }}</h6>
           </div>
         </a>
       {% endfor %}

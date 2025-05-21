@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, ListView, UpdateView
 
 from . import forms, models
 
@@ -17,6 +17,13 @@ class EntradaCreateView(CreateView):
     template_name = 'entrada_create.html'
     form_class = forms.EntradaForm
     success_url = reverse_lazy('entrada_historico')
+
+    def get_initial(self):
+        initial = super().get_initial()
+        produto_id = self.request.GET.get('produto_id')
+        if produto_id:
+            initial['produto'] = produto_id
+        return initial
 
 
 @method_decorator(admin_required, name='dispatch')
