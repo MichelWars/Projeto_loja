@@ -3,14 +3,8 @@ from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
-from django.views.generic import (
-    CreateView,
-    DeleteView,
-    DetailView,
-    ListView,
-    TemplateView,
-    UpdateView,
-)
+from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
+                                  TemplateView, UpdateView)
 
 from produtos.forms import ProdModelForm
 from produtos.models import Produto, ProdutoInventario
@@ -43,7 +37,6 @@ class ProdutosDetailView(DetailView):
 
 # view para cadastrar produtos
 @method_decorator(admin_required, name='dispatch')
-# @method_decorator(login_required(login_url='login'), name='dispatch')
 class CadProdutoCreateView(CreateView):
     model = Produto
     form_class = ProdModelForm
@@ -52,7 +45,6 @@ class CadProdutoCreateView(CreateView):
 
 
 # view para atualizar produtos
-# @method_decorator(login_required(login_url='login'), name='dispatch')
 @method_decorator(admin_required, name='dispatch')
 class ProdutoUpdateView(UpdateView):
     model = Produto

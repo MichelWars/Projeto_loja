@@ -2,12 +2,14 @@ import os
 
 import google.generativeai as genai
 
+from .api_key import api_key
+
 # Essa configuração é para utilizar o Gemini da Google para gerar a bio dos veículos automaticamente.
 # link: https://ai.google.dev/gemini-api/docs/text-generation?hl=pt-br&amp%3Bauthuser=3&amp%3Blang=python&lang=python
 
 
 def get_descricao_produto(produto, console, ano_lancamento):
-    genai.configure(api_key='AIzaSyCpsGKqjQ_daC0G4yCGgzGST5galVhFTxk')
+    genai.configure(api_key=api_key)
     # obs: Use uma variável de ambiente para a chave da API
     model = genai.GenerativeModel('gemini-1.5-flash')
 

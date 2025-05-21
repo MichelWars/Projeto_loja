@@ -41,6 +41,10 @@ Inventario
         background-color: #f1f1f1;
         /* Cor de fundo ao passar o mouse */
     }
+
+    a {
+        text-decoration: none;
+    }
 </style>
 
 <main>
@@ -71,16 +75,18 @@ Inventario
                     <th>Console</th>
                     <th>Quantidade em Estoque</th>
                     <th>Valor Unitario</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 {% for produto in produtos %}
                 <tr>
-                    <td>{{ produto.id }}</td>
+                    <td><a href="{% url 'prod_update' pk=produto.id %}">{{ produto.id }}</a></td>
                     <td>{{ produto.titulo }}</td>
                     <td>{{ produto.console }}</td>
                     <td>{{ produto.quantidade }}</td>
                     <td>R${{ produto.valor }}</td>
+                    <td><a href="{% url 'entrada_create' %}?produto_id={{ produto.id }}" class="btn btn-success"><i class="bi bi-plus-square"></i></a></td>
                 </tr>
                 {% endfor %}
             </tbody>

@@ -63,29 +63,30 @@
       <nav class="navbar navbar-expand-lg navbar-light bg-dark">
         <ul>
           {% if user.is_authenticated and user.is_superuser %}
-          <li>Olá, {{ user.username }}</li>
-          <li><a href="{% url 'catalogo' %}">Catalogo</a></li>
-          <li><a href="{% url 'cad_prod' %}">Cadastrar Produto</a></li>
-          <li><a href="{% url 'estoque' %}">Estoque</a></li>
-          <li><a href="{% url 'entrada_create' %}">Entrada de Mercadorias</a></li>
-          <li><a href="{% url 'entrada_historico' %}">Historico de entradas</a></li>
+          <li class="btn btn-outline-primary">Olá, {{ user.username }}</li>
+          <li><a href="{% url 'catalogo' %}" class="btn btn-outline-primary">Catalogo</a></li>
+          <li><a href="{% url 'cad_prod' %}" class="btn btn-outline-primary">Cadastrar Produto</a></li>
+          <li><a href="{% url 'estoque' %}" class="btn btn-outline-primary">Estoque</a></li>
+          <li><a href="{% url 'entrada_create' %}" class="btn btn-outline-primary">Entrada de Mercadorias</a></li>
+          <li><a href="{% url 'entrada_historico' %}" class="btn btn-outline-primary">Historico de entradas</a></li>
           {% elif user.is_authenticated %}
           <li>Olá, {{ user.cliente.nome }}</li>
-          <li><a href="{% url 'catalogo' %}">Catalogo</a></li>
+          <li><a href="{% url 'catalogo' %}" class="btn btn-outline-primary">Catalogo</a></li>
           {% endif %}
 
           {% if not user.is_authenticated %}
-          <li><a href="{% url 'register' %}">Cadastre-se</a></li>
-          <li><a href="{% url 'login' %}">Login</a></li>
-          <li><a href="{% url 'catalogo' %}">Catalogo</a></li>
+          <li><a href="{% url 'register' %}" class="btn btn-outline-primary">Cadastre-se</a></li>
+          <li><a href="{% url 'login' %}" class="btn btn-outline-primary">Login</a></li>
+          <li><a href="{% url 'catalogo' %}" class="btn btn-outline-primary">Catalogo</a></li>
 
 
           {% endif %}
 
           {% if user.is_authenticated %}
-          <li><a href="{% url 'logout' %}">Sair</a></li>
+          <li><a href="{% url 'logout' %}" class="btn btn-outline-primary">Sair</a></li>
           {% endif %}
         </ul>
+        <a href="#" class="btn btn-outline-primary"><i class="bi bi-cart" ></i></a>
       </nav>
     </div>
   </header>
