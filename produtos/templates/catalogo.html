@@ -105,8 +105,8 @@
   <div class="prod-grid">
     {% if produtos %}
       {% for produto in produtos %}
-        <a href="{% url 'prod_detail' produto.pk %}">
-          <div class="prod-card">
+      <div class="prod-card">
+            <a href="{% url 'prod_detail' produto.pk %}">
             {% if produto.foto %}
               <img src="{{ produto.foto.url }}" alt="{{ produto.titulo }} - {{ produto.console }}">
             {% else %}
@@ -115,8 +115,9 @@
             <h6>{{ produto.titulo }}</h6>
             <h6>Console: {{ produto.console }}</h6>
             <h6>R$ {{ produto.valor }}</h6>
+            
+          </a>
           </div>
-        </a>
       {% endfor %}
     {% else %}
       <p class="no-results">Nenhum produto encontrado.</p>

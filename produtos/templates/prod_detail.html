@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block title %}
 Detalhes do produto
 {% endblock %}
@@ -89,10 +89,16 @@ Detalhes do produto
   <p><strong>Descricao:</strong> {{ object.descricao }}</p>
   {% endif %}
 </div>
-{% if user.is_authenticated and user.is_superuser %}
 <div class="buttons-container">
+  <form onsubmit="event.preventDefault(); adicionarAoCarrinho({{ object.id }});">
+    {% csrf_token %}
+    <button class="btn btn-success" type="submit">Adicionar ao carrinho</button>
+  </form>
+  {% if user.is_authenticated and user.is_superuser %}
   <a href="{% url 'prod_update' pk=object.pk %}" class="btn btn-primary">Editar</a>
   <a href="{% url 'prod_delete' pk=object.pk %}" class="btn btn-danger">Deletar</a>
 </div>
 {% endif %}
+
+
 {% endblock %}
