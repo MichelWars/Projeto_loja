@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Carrinho{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+  <h2 class="mb-4">Carrinho de Compras</h2>
+  {% for item in produtos %}
+  <div class="card mb-3">
+    <div class="row g-0 align-items-center">
+      <div class="col-md-2 text-center p-2">
+        {% if item.produto.foto %}
+        <img src="{{ item.produto.foto.url }}" class="img-fluid rounded-start" alt="{{ item.produto.titulo }}">
+        {% else %}
+        <div class="text-muted">Sem imagem</div>
+        {% endif %}
+      </div>
+
+      <div class="col-md-10">
+        <div class="card-body">
+          <h5 class="card-title">{{ item.produto.titulo }}</h5>
+          <p class="card-text mb-1">Valor unitário: R$ {{ item.produto.valor }}</p>
+
+          <div class="d-flex align-items-center">
+            <form action="{% url 'atualizar_carrinho' %}" method="POST" class="d-flex align-items-center">
+              {% csrf_token %}
+              <input type="hidden" name="produto_id" value="{{ item.produto.id }}">
+              <label for="quantidade-{{ item.produto.id }}" class="me-2">Quantidade:</label>
+              <select name="quantidade" id="quantidade-{{ item.produto.id }}" class="form-select form-select-sm me-2"
+                onchange="this.form.submit()">
+                {% for i in quantidades %}
+                <option value="{{ i }}" {% if i == item.quantidade %} selected {% endif %}>{{ i }}</option>
+                {% endfor %}
+              </select>
+            </form>
+
+            <span class="ms-auto fw-bold">Total: R$ {{ item.subtotal }}</span>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% empty %}
+  <p>Seu carrinho está vazio.</p>
+  {% endfor %}
+
+  <div class="text-end mt-4">
+    <h4>Total do carrinho: R$ {{ total }}</h4>
+  </div>
+</div>
+
+{% endblock %}
