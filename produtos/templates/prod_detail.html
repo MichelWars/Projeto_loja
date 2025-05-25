@@ -1,104 +1,69 @@
 {% extends "base.html" %}
 {% load static %}
+
 {% block title %}
 Detalhes do produto
 {% endblock %}
 
 {% block content %}
+
 <style>
-  .prod-prodd {
+    .card {
     background-color: #000000;
-    box-shadow: 0 2px 6px rgba(0, 4, 255, 0.2);
+    box-shadow: 0 10px 10px rgba(0, 4, 255, 0.2);
     border-radius: 10px;
     overflow: hidden;
     text-align: center;
     transition: all 0.3s ease;
-    max-width: 500px;
-    margin: 20px auto 0;
-    margin-bottom: 20px;
+
   }
 
-  .prod-prodd:hover {
+  .card:hover {
     cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 10px 10px rgba(255, 0, 0, 0.4);
     transform: translateY(-2px);
   }
-
-  .prod-prodd img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-  }
-
-  .prod-prodd h2 {
-    font-size: 1.5rem;
-    margin: 10px;
-  }
-
-  .prod-prodd p {
-    font-size: 1rem;
-    margin-bottom: 10px;
-  }
-
-  .buttons-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
-  }
-
-
-
-  .btn:hover {
-    background-color: #108eb8;
-  }
-
-  .btn-danger {
-    background-color: #d9534f;
-    text-decoration: none !important;
-  }
-
-  .btn-danger:hover {
-    background-color: #d2221c;
-  }
-
-  .error-message {
-    color: #d9534f;
-    font-size: 14px;
-    margin-top: 5px;
-  }
-
-  a {
-    text-decoration: none !important;
-  }
 </style>
-<div class="prod-prodd">
-  {% if object.foto %}
-  <img src="{{ object.foto.url }}" alt="{{ object.titulo }} - {{ object.console }}">
-  {% else %}
-  <p class="no-photo">Foto não disponível</p>
-  {% endif %}
-  <h2>{{ object.titulo }}</h2>
-  <h3>Console: {{ object.console }}</h3>
-  {% if object.ano_lancamento %}
-  <p><strong>Ano de lançamento:</strong> {{ object.ano_lancamento }}</p>
-  {% endif %}
 
-  <p><strong>Preço:</strong> R$ {{ object.valor }}</p>
-  {% if object.descricao %}
-  <p><strong>Descricao:</strong> {{ object.descricao }}</p>
-  {% endif %}
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card text-white bg-dark">
+        {% if object.foto %}
+        <img src="{{ object.foto.url }}" class="card-img-top img-fluid" alt="{{ object.titulo }}">
+        {% else %}
+        <div class="card-img-top text-center py-5 bg-secondary text-white">
+          Foto não disponível
+        </div>
+        {% endif %}
+
+        <div class="card-body">
+          <h4 class="card-title">{{ object.titulo }}</h4>
+          <h5 class="card-subtitle mb-2 text-muted">Console: {{ object.console }}</h5>
+
+          {% if object.ano_lancamento %}
+          <p class="card-text"><strong>Ano de lançamento:</strong> {{ object.ano_lancamento }}</p>
+          {% endif %}
+
+          <p class="card-text"><strong>Preço:</strong> R$ {{ object.valor }}</p>
+
+          {% if object.descricao %}
+          <p class="card-text"><strong>Descrição:</strong> {{ object.descricao }}</p>
+          {% endif %}
+        </div>
+        <div class="card-footer d-flex justify-content-center flex-wrap gap-1">
+            <form onsubmit="event.preventDefault(); adicionarAoCarrinho({{ object.id }});">
+              {% csrf_token %}
+              <button class="btn btn-success" type="submit">Adicionar ao carrinho</button>
+            </form>
+
+            {% if user.is_authenticated and user.is_superuser %}
+            <a href="{% url 'prod_update' pk=object.pk %}" class="btn btn-primary">Editar</a>
+            <a href="{% url 'prod_delete' pk=object.pk %}" class="btn btn-danger">Deletar</a>
+            {% endif %}
+          </div>
+      </div>
+    </div>
+  </div>
 </div>
-<div class="buttons-container">
-  <form onsubmit="event.preventDefault(); adicionarAoCarrinho({{ object.id }});">
-    {% csrf_token %}
-    <button class="btn btn-success" type="submit">Adicionar ao carrinho</button>
-  </form>
-  {% if user.is_authenticated and user.is_superuser %}
-  <a href="{% url 'prod_update' pk=object.pk %}" class="btn btn-primary">Editar</a>
-  <a href="{% url 'prod_delete' pk=object.pk %}" class="btn btn-danger">Deletar</a>
-</div>
-{% endif %}
-
-
 {% endblock %}

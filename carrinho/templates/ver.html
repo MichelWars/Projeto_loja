@@ -50,7 +50,13 @@
 
   <div class="text-end mt-4">
     <h4>Total do carrinho: R$ {{ total }}</h4>
+    <div class="buttons-container">
+      <a href="{% url 'catalogo' %}" class="btn btn-primary">Voltar ao Catalogo</a>
+      <a href="#" class="btn btn-success">Gerar Pedido</a>
+    </div>
   </div>
+
+
 </div>
 
 {% endblock %}

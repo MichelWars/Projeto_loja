@@ -1,0 +1,76 @@
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <!-- Olá, usuário -->
+    {% if user.is_authenticated and user.is_superuser %}
+    <span class="navbar-text me-2">
+      <a class="btn btn-outline-primary" disabled>Olá, {{ user.username }}</a>
+    </span>
+    {% elif user.is_authenticated %}
+    <span class="navbar-text me-2">
+      <a class="btn btn-outline-primary" disabled>Olá, {{ user.cliente.nome }}</a>
+    </span>
+    {% else %}
+        <span class="navbar-text me-2">
+      <a class="btn btn-outline-primary" disabled>Bem Vindo(a)!</a>
+    </span>
+    {% endif %}
+
+    <!-- Botão de menu hamburguer -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Itens do menu -->
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex align-items-lg-center flex-column flex-lg-row">
+        {% if user.is_authenticated and user.is_superuser %}
+        <li class="nav-item me-lg-2">
+          <a class="btn btn-outline-primary w-100 w-lg-auto text-center" href="{% url 'catalogo' %}">Catálogo</a>
+        </li>
+        <li class="nav-item me-lg-2">
+          <a class="btn btn-outline-primary w-100 w-lg-auto text-center" href="{% url 'cad_prod' %}">Cadastrar Produto</a>
+        </li>
+        <li class="nav-item me-lg-2">
+          <a class="btn btn-outline-primary w-100 w-lg-auto text-center" href="{% url 'estoque' %}">Estoque</a>
+        </li>
+        <li class="nav-item me-lg-2">
+          <a class="btn btn-outline-primary w-100 w-lg-auto text-center" href="{% url 'entrada_create' %}">Entrada de Mercadorias</a>
+        </li>
+        <li class="nav-item me-lg-2">
+          <a class="btn btn-outline-primary w-100 w-lg-auto text-center" href="{% url 'entrada_historico' %}">Histórico de Entradas</a>
+        </li>
+        {% elif user.is_authenticated %}
+        <li class="nav-item me-lg-2">
+          <a class="btn btn-outline-primary w-100 w-lg-auto text-center" href="{% url 'catalogo' %}">Catálogo</a>
+        </li>
+        {% else %}
+        <li class="nav-item me-lg-2">
+          <a class="btn btn-outline-primary w-100 w-lg-auto text-center" href="{% url 'register' %}">Cadastre-se</a>
+        </li>
+        <li class="nav-item me-lg-2">
+          <a class="btn btn-outline-primary w-100 w-lg-auto text-center" href="{% url 'login' %}">Login</a>
+        </li>
+        <li class="nav-item me-lg-2">
+          <a class="btn btn-outline-primary w-100 w-lg-auto text-center" href="{% url 'catalogo' %}">Catálogo</a>
+        </li>
+        {% endif %}
+
+        {% if user.is_authenticated %}
+        <li class="nav-item me-lg-2">
+          <a class="btn btn-outline-primary w-100 w-lg-auto text-center" href="{% url 'logout' %}">Sair</a>
+        </li>
+        {% endif %}
+      </ul>
+
+      <!-- Carrinho -->
+      <div class="d-flex mt-2 mt-lg-0">
+        <a href="{% url 'ver_carrinho' %}" class="btn btn-outline-primary w-100 w-lg-auto text-center">
+          <i class="bi bi-cart"></i>
+          <span id="contador-carrinho">0</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
