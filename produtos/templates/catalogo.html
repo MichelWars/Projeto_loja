@@ -1,127 +1,71 @@
 {% extends "base.html" %}
 {% block title %}Catalogo de Produtos{% endblock %}
 {% block content %}
-  <style>
-    .prod-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 20px;
-      margin: 0 auto;
-      max-width: 1200px;
-      padding: 20px;
-    }
+<style>
+  .prod-card {
+    background-color: #000000;
+    box-shadow: 0 2px 6px rgba(0, 64, 255, 0.4);
+    border-radius: 10px;
+    overflow: hidden;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
 
-    .prod-card {
-      background-color: #8e8e8e;
-      box-shadow: 0 2px 6px rgba(0, 64, 255, 0.4);
-      border-radius: 10px;
-      overflow: hidden;
-      text-align: center;
-      transition: all 0.3s ease;
-    }
+  .prod-card:hover {
+    cursor: pointer;
+    box-shadow: 0 4px 10px red;
+    transform: translateY(-2px);
+  }
 
-    .prod-card:hover {
-        cursor: pointer;
-        box-shadow: 0 4px 10px red;
-        transform: translateY(-2px);
-    }
+  .prod-card img {
+    width: 100%;
+    height: 200px;
+  }
 
-    .prod-card img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-    }
+  a {
+    color: #ffffff;
+    text-decoration: none;
+  }
 
-    .prod-card h6 {
-        font-size: 1.0rem;
+  a:hover {
+    color: red;
+  }
 
-    }
+</style>
 
-    .prod-card p {
-      font-size: 1rem;
-      margin-bottom: 10px;
-    }
+<div class="container py-4 ">
 
-    @media (max-width: 768px) {
-      .prod-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    form {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: 20px;
-        text-align: center;
-        padding: 20px;
-    }
-
-    input[type="text"] {
-        padding: 10px;
-        font-size: 16px;
-        border: 2px solid #e3e1e1;
-        border-radius: 4px;
-        margin-right: 10px;
-        transition: border-bottom-color 0.3s ease-in-out;
-    }
-
-    input[type="text"]:focus {
-        outline: none;
-        border-bottom-color: #e3e1e1;
-    }
-
-    button[type="submit"] {
-        background-color: #0096c7;
-        color: #fff;
-        border: none;
-        padding: 10px 20px;
-        font-size: 14px;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: background-color 0.3s ease-in-out;
-    }
-
-    button[type="submit"]:hover {
-        background-color: rgba(0, 64, 255, 0.4);
-    }
-
-    a {
-      font-size: 18px;
-      color: #333;
-      text-decoration: none;
-    }
-
-    a:hover {
-      color: red;
-    }
-  </style>
-
-  <form method="GET" action="{% url 'catalogo' %}">
-    <input type="text" name="titulo" placeholder="Buscar produto...">
-    <button type="submit">Buscar</button>
+  <form method="GET" action="{% url 'catalogo' %}" class="d-flex justify-content-center align-items-center mb-4 flex-wrap gap-2">
+    <input type="text" name="titulo" class="form-control w-auto" placeholder="Buscar produto...">
+    <button type="submit" class="btn btn-outline-primary">Buscar</button>
   </form>
 
-  <div class="prod-grid">
-    {% if produtos %}
+  {% if produtos %}
+    <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4">
       {% for produto in produtos %}
-      <div class="prod-card">
+        <div class="col">
+          <div class="prod-card h-100">
             <a href="{% url 'prod_detail' produto.pk %}">
-            {% if produto.foto %}
-              <img src="{{ produto.foto.url }}" alt="{{ produto.titulo }} - {{ produto.console }}">
-            {% else %}
-              <p class="no-photo">Foto não disponível</p>
-            {% endif %}
-            <h6>{{ produto.titulo }}</h6>
-            <h6>Console: {{ produto.console }}</h6>
-            <h6>R$ {{ produto.valor }}</h6>
-            
-          </a>
+              {% if produto.foto %}
+                <img src="{{ produto.foto.url }}" alt="{{ produto.titulo }} - {{ produto.console }}" class="img-fluid">
+              {% else %}
+                <p class="no-photo">Foto não disponível</p>
+              {% endif %}
+              <div class="p-2">
+                <h6>{{ produto.titulo }}</h6>
+                <h6>Console: {{ produto.console }}</h6>
+                <h6>R$ {{ produto.valor }}</h6>
+              </div>
+            </a>
           </div>
+        </div>
       {% endfor %}
-    {% else %}
-      <p class="no-results">Nenhum produto encontrado.</p>
-    {% endif %}
-  </div>
-  {% include 'components/_pagination.html' %}
+    </div>
+  {% else %}
+    <p class="text-center mt-4">Nenhum produto encontrado.</p>
+  {% endif %}
+
+  
+</div>
+{% include 'components/_pagination.html' %}
 {% endblock %}

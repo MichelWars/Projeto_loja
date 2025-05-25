@@ -24,7 +24,6 @@ class CustomUserCreationForm(forms.ModelForm):
         widget=forms.DateInput(attrs={'type': 'date'})
     )
 
-    # campos da tabela Cliente
     class Meta:
         model = User
         fields = [
@@ -38,22 +37,23 @@ class CustomUserCreationForm(forms.ModelForm):
             'data_nascimento',
         ]
 
-    # validação de senha
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            existing_classes = field.widget.attrs.get('class', '')
+            field.widget.attrs['class'] = f'{existing_classes} form-control'.strip()
+
     def clean_password2(self):
-        if self.cleaned_data.get('password1') != self.cleaned_data.get(
-            'password2'
-        ):
+        if self.cleaned_data.get('password1') != self.cleaned_data.get('password2'):
             raise ValidationError('As senhas não coincidem.')
         return self.cleaned_data.get('password2')
 
-    # validação de e-mail
     def clean_email(self):
         email = self.cleaned_data.get('email')
         if User.objects.filter(username=email).exists():
             raise ValidationError('Este e-mail já está em uso.')
         return email
 
-    # cria o user e o cliente
     def save(self, commit=True):
         email = self.cleaned_data['email']
         password = self.cleaned_data['password1']

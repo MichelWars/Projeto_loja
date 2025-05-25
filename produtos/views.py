@@ -41,7 +41,7 @@ class CadProdutoCreateView(CreateView):
     model = Produto
     form_class = ProdModelForm
     template_name = 'cad_prod.html'
-    success_url = '/catalogo/'
+    success_url = reverse_lazy('catalogo')
 
 
 # view para atualizar produtos
@@ -60,7 +60,7 @@ class ProdutoUpdateView(UpdateView):
 class ProdutoDeleteView(DeleteView):
     model = Produto
     template_name = 'prod_delete.html'
-    success_url = '/catalogo/'
+    success_url = reverse_lazy('catalogo')
 
 
 @method_decorator(admin_required, name='dispatch')
