@@ -13,26 +13,6 @@ def adicionar_ao_carrinho(request):
     return JsonResponse({"total_itens": sum(carrinho.itens().values())})
 
 
-# def ver_carrinho(request):
-#     carrinho = Carrinho(request)
-#     produtos_carrinho = []
-
-#     for produto_id, quantidade in carrinho.itens().items():
-#         produto = get_object_or_404(Produto, id=produto_id)
-#         produtos_carrinho.append({
-#             "produto": produto,
-#             "quantidade": quantidade,
-#             "subtotal": produto.valor * quantidade
-#         })
-
-#     total = sum(item["subtotal"] for item in produtos_carrinho)
-
-#     return render(request, "ver.html", {
-#         "produtos": produtos_carrinho,
-#         "total": total
-#     })
-
-
 @require_POST
 def atualizar_carrinho(request):
     produto_id = request.POST.get("produto_id")

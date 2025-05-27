@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Finalizar Pedido{% endblock %}
+{% block content %}
+
+<div class="container mt-5 mb-5">
+  <h2 class="mb-4 text-center">Finalizar Pedido</h2>
+
+  <!-- Tabela dos produtos -->
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover">
+      <thead class="table-secondary">
+        <tr>
+          <th>Produto</th>
+          <th>Quantidade</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in produtos %}
+        <tr>
+          <td>{{ item.produto.titulo }} - {{ item.produto.console }}</td>
+          <td>{{ item.quantidade }}</td>
+          <td>R$ {{ item.subtotal }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  
+  
+  <!-- Formulário -->
+  <form method="post" class="card p-4 shadow-sm">
+    {% csrf_token %}
+    
+    <!-- Total -->
+    <p class="fs-5 "><strong>Total:</strong> R$ <span id="valor-total">{{ total }}</span></p>
+    <!-- Campo: forma_pagamento -->
+    <div class="mb-3">
+      <label for="id_forma_pagamento" class="form-label">{{ form.forma_pagamento.label }}</label>
+      {{ form.forma_pagamento }}
+    </div>
+
+    <!-- Select de parcelas -->
+    <div id="parcelas-container" class="mb-3" style="display:none;">
+      <label for="parcelas" class="form-label">Parcelas (1 a 12):</label>
+      <select id="parcelas" name="parcelas" class="form-select">
+        {% for i in parcelas %}
+          <option value="{{ i }}">{{ i }}x</option>
+        {% endfor %}
+      </select>
+      <div class="form-text" id="valor-parcela"></div>
+    </div>
+
+    <!-- Campo: endereco -->
+    <div class="mb-3">
+      <label for="id_endereco" class="form-label">{{ form.endereco.label }}</label>
+      {{ form.endereco }}
+    </div>
+
+    <div class="d-grid">
+      <button type="submit" class="btn btn-primary">Confirmar Pedido</button>
+    </div>
+  </form>
+</div>
+
+<script src="{% static 'js/pedido.js' %}"></script>
+
+{% endblock %}
