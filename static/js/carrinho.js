@@ -32,5 +32,7 @@ function adicionarAoCarrinho(produtoId) {
     });
 }
 
+
+
 // Executa assim que a página terminar de carregar
 document.addEventListener("DOMContentLoaded", atualizarContadorCarrinho);
