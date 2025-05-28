@@ -4,6 +4,12 @@ from produtos.models import Produto
 from .models import Pedido, ItemPedido
 from .forms import PedidoForm
 from carrinho.carrinho import Carrinho
+from django.views.generic import DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import Http404
+
+
+
 
 @login_required
 def finalizar_pedido(request):
@@ -43,7 +49,7 @@ def finalizar_pedido(request):
                 )
 
             carrinho.limpar()
-            return redirect('confirmacao_pedido')
+            return redirect('ver_pedido', pk=pedido.pk)
     else:
         form = PedidoForm()
 
@@ -53,3 +59,30 @@ def finalizar_pedido(request):
         'total': total,
         'parcelas': range(1, 13)
     })
+
+class VerPedidoView(LoginRequiredMixin, DetailView):
+    model = Pedido
+    template_name = 'ver_pedido.html'
+    
+    def get_object(self, queryset=None):
+        pedido = super().get_object(queryset)
+        user = self.request.user
+        if not user.is_superuser and pedido.usuario != user:
+            raise Http404("Você não tem permissão para visualizar este pedido.")
+        return pedido
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        pedido = self.object
+        itens = pedido.itens.all()
+        total = sum(item.subtotal() for item in itens)
+
+        # Valor da parcela (se aplicável)
+        valor_parcela = None
+        if pedido.forma_pagamento == 'credito' and pedido.parcelas:
+            valor_parcela = total / pedido.parcelas
+
+        context['itens'] = itens
+        context['total'] = total
+        context['valor_parcela'] = valor_parcela
+        return context
