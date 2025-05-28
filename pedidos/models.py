@@ -18,6 +18,10 @@ class Pedido(models.Model):
 
     def __str__(self):
         return f'Pedido #{self.id} de {self.usuario.username}'
+    
+    def get_total(self):
+        return sum(item.subtotal() for item in self.itens.all())
+
 
 class ItemPedido(models.Model):
     pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE, related_name='itens')

@@ -11,11 +11,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', RedirectView.as_view(url='produtos/catalogo/', permanent=False)),
     
-    path('register/', register_view, name='register'),
-    path('login/', login_view, name='login'),
-    path('logout/', logout_view, name='logout'),
+
     path('estoque/', EstoqueView.as_view(), name='estoque'),
-    
+    path("accounts/", include("accounts.urls")),
+
     path("produtos/", include("produtos.urls")),
     path("entradas/", include("entradas.urls")),
     path("carrinho/", include("carrinho.urls")),
