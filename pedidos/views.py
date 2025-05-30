@@ -4,11 +4,9 @@ from produtos.models import Produto
 from .models import Pedido, ItemPedido
 from .forms import PedidoForm
 from carrinho.carrinho import Carrinho
-from django.views.generic import DetailView
+from django.views.generic import DetailView, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404
-
-
 
 
 @login_required
@@ -60,10 +58,11 @@ def finalizar_pedido(request):
         'parcelas': range(1, 13)
     })
 
+# view para consultar pedido individual
 class VerPedidoView(LoginRequiredMixin, DetailView):
     model = Pedido
     template_name = 'ver_pedido.html'
-    
+    # controle de permissões cada usuario ve somente seus pedidos, adm ve todos
     def get_object(self, queryset=None):
         pedido = super().get_object(queryset)
         user = self.request.user
@@ -86,3 +85,10 @@ class VerPedidoView(LoginRequiredMixin, DetailView):
         context['total'] = total
         context['valor_parcela'] = valor_parcela
         return context
+    
+class ListarPedidosView(ListView):
+    model = Pedido
+    template_name = 'listar_pedidos.html'
+    context_object_name = 'pedidos'
+    paginate_by = 5
+    

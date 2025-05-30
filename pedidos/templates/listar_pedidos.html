@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Lista de Pedidos {% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+  <h2 class="mb-4">Lista de Pedidos</h2>
+
+  {% for pedido in pedidos %}
+  <div class="card mb-3">
+    <div class="row g-0 align-items-center">
+
+      <div class="col-md-10">
+        
+        <div class="card-body">
+          <h5 class="card-title">Pedido Nº{{ pedido.id }}</h5>
+          <h5 class="card-title">Data do Pedido: {{ pedido.criado_em }}</h5>
+          <!-- <p class="card-text mb-1">Valor unitário: R$ {{ item.produto.valor }}</p> -->
+
+          <div class="d-flex align-items-center">
+            <h5 class="card-title">Valor do Pedido: R${{ pedido.get_total }}</h5>
+          </div>
+
+          {% for item in pedido.itens.all %}
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item d-flex align-items-center">
+              <img src="{{ item.produto.foto.url }}" alt="{{ item.produto.nome }}" class="me-3"
+                style="width: 50px; height: 50px; object-fit: cover;">
+              <div>
+                <strong>{{ item.produto.titulo }}</strong><br>
+                R${{ item.preco_unitario }} - Quantidade: {{ item.quantidade }}
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+
+
+
+        </div><!--card-body -->
+      </div><!--col-md-10-->
+
+    </div><!--row-->
+  </div><!--card mb3-->
+
+  {% empty %}
+  <p>Sem histórico de pedidos!</p>
+  {% endfor %}
+
+
+
+</div><!--container-->
+{% include 'components/_pagination.html' %}
+{% endblock %}

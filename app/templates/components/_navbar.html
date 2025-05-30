@@ -30,6 +30,9 @@
           <a class="btn btn-outline-primary w-100 w-lg-auto text-center" href="{% url 'catalogo' %}">Catálogo</a>
         </li>
         <li class="nav-item me-lg-2">
+          <a class="btn btn-outline-primary w-100 w-lg-auto text-center" href="{% url 'listar_pedidos' %}">Lista de Pedidos</a>
+        </li>
+        <li class="nav-item me-lg-2">
           <a class="btn btn-outline-primary w-100 w-lg-auto text-center" href="{% url 'cad_prod' %}">Cadastrar Produto</a>
         </li>
         <li class="nav-item me-lg-2">
@@ -44,6 +47,9 @@
         {% elif user.is_authenticated %}
         <li class="nav-item me-lg-2">
           <a class="btn btn-outline-primary w-100 w-lg-auto text-center" href="{% url 'catalogo' %}">Catálogo</a>
+        </li>
+        <li class="nav-item me-lg-2">
+          <a class="btn btn-outline-primary w-100 w-lg-auto text-center" href="{% url 'listar_pedidos' %}">Meus Pedidos</a>
         </li>
         {% else %}
         <li class="nav-item me-lg-2">
