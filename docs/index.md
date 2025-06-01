@@ -71,6 +71,7 @@ Projeto_loja/
 ├── static/
 │   └── js/
 │       ├── carrinho.js   # arquivo de atualização dinamica do carrinho
+│       ├── cep.js        # consulta a API ViaCep e preenche o campo endereço
 │       └── pedido.js     # arquivo de atualização dinamica do pedido
 ├── media/                # Uploads de imagens de produtos
 ├── templates/            # Base e componentes HTML reutilizáveis
