@@ -3,6 +3,7 @@ from django import forms
 from . import models
 
 
+# formulario de cadastro de entradas
 class EntradaForm(forms.ModelForm):
     class Meta:
         model = models.Entrada

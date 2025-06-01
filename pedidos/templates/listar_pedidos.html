@@ -5,44 +5,71 @@
 
 {% block content %}
 
+<style>
+  .card {
+    box-shadow: 0 2px 2px rgba(0, 64, 255, 0.4);
+    border-radius: 10px;
+    overflow: hidden;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .card:hover {
+    cursor: pointer;
+    box-shadow: 0 3px 3px red;
+    transform: translateY(-2px);
+  }
+
+  a {
+    color: #ffffff;
+    text-decoration: none;
+  }
+</style>
+
 <div class="container mt-4">
   <h2 class="mb-4">Lista de Pedidos</h2>
 
   {% for pedido in pedidos %}
-  <div class="card mb-3">
-    <div class="row g-0 align-items-center">
+  <a href="{% url 'ver_pedido' pedido.pk %}">
+    <div class="card mb-3">
+      <div class="row g-0 align-items-center">
 
-      <div class="col-md-10">
-        
-        <div class="card-body">
-          <h5 class="card-title">Pedido Nº{{ pedido.id }}</h5>
-          <h5 class="card-title">Data do Pedido: {{ pedido.criado_em }}</h5>
-          <!-- <p class="card-text mb-1">Valor unitário: R$ {{ item.produto.valor }}</p> -->
+        <div class="col-md-10">
 
-          <div class="d-flex align-items-center">
-            <h5 class="card-title">Valor do Pedido: R${{ pedido.get_total }}</h5>
-          </div>
+          <div class="card-body">
+            <h3 class="card-title">Pedido Nº{{ pedido.id }}</h3>
+            <h5 class="card-title">Data do Pedido: {{ pedido.criado_em }}</h5>
 
-          {% for item in pedido.itens.all %}
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item d-flex align-items-center">
-              <img src="{{ item.produto.foto.url }}" alt="{{ item.produto.nome }}" class="me-3"
-                style="width: 50px; height: 50px; object-fit: cover;">
-              <div>
-                <strong>{{ item.produto.titulo }}</strong><br>
-                R${{ item.preco_unitario }} - Quantidade: {{ item.quantidade }}
-              </div>
-            </li>
-            {% endfor %}
-          </ul>
+            <div class="d-flex align-items-center">
+              <h5 class="card-title">Cliente: {{ pedido.usuario }}</h5>
+            </div>
+
+            <div class="d-flex align-items-center">
+              <h5 class="card-title">Valor do Pedido: R${{ pedido.get_total }}</h5>
+            </div>
+
+            {% for item in pedido.itens.all %}
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item d-flex align-items-center">
+                <img src="{{ item.produto.foto.url }}" alt="{{ item.produto.nome }}" class="me-3"
+                  style="width: 50px; height: 50px; object-fit: cover;">
+                <div>
+                  <strong>{{ item.produto.titulo }}</strong><br>
+                  R${{ item.preco_unitario }} - Quantidade: {{ item.quantidade }}
+                </div>
+              </li>
+              {% endfor %}
+            </ul>
 
 
 
-        </div><!--card-body -->
-      </div><!--col-md-10-->
+          </div><!--card-body -->
+        </div><!--col-md-10-->
 
-    </div><!--row-->
-  </div><!--card mb3-->
+      </div><!--row-->
+    </div><!--card mb3-->
+
+  </a>
 
   {% empty %}
   <p>Sem histórico de pedidos!</p>

@@ -1,6 +1,6 @@
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from django.contrib import messages
 from django.shortcuts import redirect, render
 
 from .forms import CustomUserCreationForm
@@ -25,13 +25,15 @@ def login_view(request):
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
-        
+
         if user is not None:
             login(request, user)
             return redirect('catalogo')
         else:
             messages.error(request, 'Usuário ou senha inválidos.')
-            login_form = AuthenticationForm(request)  # mantém dados preenchidos no form
+            login_form = AuthenticationForm(
+                request
+            )  # mantém dados preenchidos no form
     else:
         login_form = AuthenticationForm()
 

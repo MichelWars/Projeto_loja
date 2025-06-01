@@ -3,50 +3,52 @@
 {% block title %}Pedido Nº{{ object.id }}{% endblock %}
 {% block content %}
 <div class="container mt-4">
-    <h2 class="mb-4">Pedido Nº{{ object.id }}</h2>
-    <h4 class="mb-4">Data do Pedido: {{ pedido.criado_em }}</h2>
+  <h2 class="mb-4">Pedido Nº{{ object.id }}</h2>
+  <h4 class="mb-4">Data do Pedido: {{ pedido.criado_em }}</h2>
 
     <div class="mb-3">
-        <strong>Cliente:</strong> {{ object.usuario.get_full_name|default:object.usuario.username }}<br>
-        <strong>Endereço:</strong> {{ object.endereco }}<br>
-        <strong>Forma de Pagamento:</strong> {{ object.get_forma_pagamento_display }}<br>
-        {% if object.forma_pagamento == "credito" and object.parcelas %}
-        <p><strong>Parcelamento:</strong>
-            {{ pedido.parcelas }}x
-            {% if valor_parcela %}
-            de R$ {{ valor_parcela|floatformat:2 }}
-            {% endif %}
-        </p>
-
+      <strong>Cliente:</strong> {{ object.usuario.get_full_name|default:object.usuario.username }}<br>
+      <strong>Endereço:</strong> {{ object.endereco }}<br>
+      <strong>Forma de Pagamento:</strong> {{ object.get_forma_pagamento_display }}<br>
+      {% if object.forma_pagamento == "credito" and object.parcelas %}
+      <p><strong>Parcelamento:</strong>
+        {{ pedido.parcelas }}x
+        {% if valor_parcela %}
+        de R$ {{ valor_parcela|floatformat:2 }}
         {% endif %}
+      </p>
+
+      {% endif %}
     </div>
 
     <h4>Itens do Pedido</h4>
     <table class="table table-striped">
-        <thead>
-            <tr>
-                <th></th>
-                <th>Produto</th>
-                <th>Quantidade</th>
-                <th>Valor Unitário</th>
-                <th>Subtotal</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in itens %}
-            <tr>
-                <td><img src="{{ item.produto.foto.url }}" alt="{{ item.produto.titulo }}" width="60"></td>
-                <td>{{ item.produto.titulo }} - {{ item.produto.console }}</td>
-                <td>{{ item.quantidade }}</td>
-                <td>R$ {{ item.preco_unitario }}</td>
-                <td>R$ {{ item.subtotal }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Produto</th>
+          <th>Quantidade</th>
+          <th>Valor Unitário</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in itens %}
+        <tr>
+          <td><img src="{{ item.produto.foto.url }}" alt="{{ item.produto.titulo }}" width="60"></td>
+          <td>{{ item.produto.titulo }} - {{ item.produto.console }}</td>
+          <td>{{ item.quantidade }}</td>
+          <td>R$ {{ item.preco_unitario }}</td>
+          <td>R$ {{ item.subtotal }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
     </table>
 
     <div class="text-end">
-        <h5><strong>Total:</strong> R$ {{ object.get_total }}</h5>
+      <h5><strong>Total:</strong> R$ {{ object.get_total }}</h5>
     </div>
+    <a class="btn btn-outline-primary w-100 w-lg-auto text-center" href="{% url 'listar_pedidos' %}">Voltar</a>
+
 </div>
 {% endblock %}

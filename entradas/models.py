@@ -3,6 +3,7 @@ from django.db import models
 from produtos.models import Produto
 
 
+# Essa classe representa a entrada de produtos no banco de dados
 class Entrada(models.Model):
     produto = models.ForeignKey(
         Produto, on_delete=models.PROTECT, related_name='entradas'

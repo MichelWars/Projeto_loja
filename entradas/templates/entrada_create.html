@@ -9,16 +9,16 @@ Nova de Entrada
 <div class="container mt-4">
   <h3 class="display-6">Cadastrar Entrada</h3>
 
-<div class="card">
-  <div class="card-body">
-    <form method="post" class="form">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit" class="btn btn-primary">Registar Entrada</button>
-    </form>
-    <a href="{% url 'catalogo' %}" class="btn btn-secondary mt-3">Cancelar e Voltar</a>
+  <div class="card">
+    <div class="card-body">
+      <form method="post" class="form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Registar Entrada</button>
+      </form>
+      <a href="{% url 'catalogo' %}" class="btn btn-secondary mt-3">Cancelar e Voltar</a>
+    </div>
   </div>
-</div>
 </div>
 
 {% endblock %}

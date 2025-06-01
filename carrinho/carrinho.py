@@ -1,14 +1,15 @@
 # Esse arquivo faz gerenciamento de sessões
 
+
 class Carrinho:
     # Inicializa o carrinho pegando (ou criando) a chave 'carrinho' na sessão
     def __init__(self, request):
         self.session = request.session
-        carrinho = self.session.get("carrinho")
+        carrinho = self.session.get('carrinho')
         if not carrinho:
-            carrinho = self.session["carrinho"] = {}
+            carrinho = self.session['carrinho'] = {}
         self.carrinho = carrinho
-        
+
     # Adiciona um produto ao carrinho ou incrementa a quantidade
     def adicionar(self, produto_id, quantidade=1):
         produto_id = str(produto_id)
@@ -17,8 +18,8 @@ class Carrinho:
         else:
             self.carrinho[produto_id] = quantidade
         self.salvar()
-        
- # Remove um produto do carrinho
+
+    # Remove um produto do carrinho
     def remover(self, produto_id):
         produto_id = str(produto_id)
         if produto_id in self.carrinho:
@@ -36,7 +37,7 @@ class Carrinho:
 
     # Limpa completamente o carrinho
     def limpar(self):
-        self.session["carrinho"] = {}
+        self.session['carrinho'] = {}
         self.salvar()
 
     # Marca a sessão como modificada, para o Django salvar automaticamente

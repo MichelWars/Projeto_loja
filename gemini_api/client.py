@@ -2,7 +2,9 @@ import os
 
 import google.generativeai as genai
 
-from .api_key import api_key
+from .api_key import (
+    api_key,
+)  # crie uma variável de ambiente para a chave da API
 
 # Essa configuração é para utilizar o Gemini da Google para gerar a bio dos veículos automaticamente.
 # link: https://ai.google.dev/gemini-api/docs/text-generation?hl=pt-br&amp%3Bauthuser=3&amp%3Blang=python&lang=python

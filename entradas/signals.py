@@ -4,6 +4,7 @@ from django.dispatch import receiver
 from .models import Entrada
 
 
+# sempre que uma entrada é gerada, aumenta a quantidade de itens no estoque
 @receiver(post_save, sender=Entrada)
 def update_produto_quantidade(sender, instance, created, **kwargs):
     if created:   # somente se for gerado um NOVO registro em Entrada

@@ -1,9 +1,8 @@
 from django.urls import path
+
 from .views import EntradaCreateView, EntradaListView
 
-
 urlpatterns = [
-
     path(
         'cadastrar/',
         EntradaCreateView.as_view(),
@@ -14,5 +13,4 @@ urlpatterns = [
         EntradaListView.as_view(),
         name='entrada_historico',
     ),
-
 ]

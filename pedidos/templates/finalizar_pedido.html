@@ -27,12 +27,12 @@
       </tbody>
     </table>
   </div>
-  
-  
+
+
   <!-- Formulário -->
   <form method="post" class="card p-4 shadow-sm">
     {% csrf_token %}
-    
+
     <!-- Total -->
     <p class="fs-5 "><strong>Total:</strong> R$ <span id="valor-total">{{ total }}</span></p>
     <!-- Campo: forma_pagamento -->
@@ -46,7 +46,7 @@
       <label for="parcelas" class="form-label">Parcelas (1 a 12):</label>
       <select id="parcelas" name="parcelas" class="form-select">
         {% for i in parcelas %}
-          <option value="{{ i }}">{{ i }}x</option>
+        <option value="{{ i }}">{{ i }}x</option>
         {% endfor %}
       </select>
       <div class="form-text" id="valor-parcela"></div>
@@ -58,13 +58,14 @@
       {{ form.endereco }}
     </div>
 
+
     <div class="d-grid">
       <button type="submit" class="btn btn-success">Confirmar Pedido</button>
     </div>
     <br>
     <a href="{% url 'ver_carrinho' %}" class="btn btn-primary">Voltar ao carrinho
-        <i class="bi bi-cart"></i>
-      </a>
+      <i class="bi bi-cart"></i>
+    </a>
   </form>
 </div>
 

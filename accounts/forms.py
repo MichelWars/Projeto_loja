@@ -41,10 +41,14 @@ class CustomUserCreationForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
             existing_classes = field.widget.attrs.get('class', '')
-            field.widget.attrs['class'] = f'{existing_classes} form-control'.strip()
+            field.widget.attrs[
+                'class'
+            ] = f'{existing_classes} form-control'.strip()
 
     def clean_password2(self):
-        if self.cleaned_data.get('password1') != self.cleaned_data.get('password2'):
+        if self.cleaned_data.get('password1') != self.cleaned_data.get(
+            'password2'
+        ):
             raise ValidationError('As senhas não coincidem.')
         return self.cleaned_data.get('password2')
 
@@ -57,7 +61,7 @@ class CustomUserCreationForm(forms.ModelForm):
     def save(self, commit=True):
         email = self.cleaned_data['email']
         password = self.cleaned_data['password1']
-
+        # criando o user
         user = User.objects.create_user(
             username=email,
             email=email,
@@ -65,7 +69,7 @@ class CustomUserCreationForm(forms.ModelForm):
             first_name=self.cleaned_data['nome'],
             last_name=self.cleaned_data['sobrenome'],
         )
-
+        # criando o cliente
         Cliente.objects.create(
             user=user,
             nome=self.cleaned_data['nome'],

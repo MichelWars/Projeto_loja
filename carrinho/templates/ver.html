@@ -36,6 +36,8 @@
               </select>
             </form>
 
+
+
             <span class="ms-auto fw-bold">Total: R$ {{ item.subtotal }}</span>
 
           </div>
@@ -54,6 +56,13 @@
       <a href="{% url 'catalogo' %}" class="btn btn-primary">Voltar ao Catalogo</a>
       <a href="{% url 'finalizar_pedido' %}" class="btn btn-success">Gerar Pedido</a>
     </div>
+    {% if messages %}
+    <div class="btn btn-danger">
+      {% for message in messages %}
+      <p class="{{ message.tags }}">{{ message }}</p>
+      {% endfor %}
+    </div>
+    {% endif %}
   </div>
 
 

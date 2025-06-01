@@ -6,19 +6,19 @@ Deletar Produto
 
 {% block content %}
 
-  <div class="card">
-    <div class="card-header">
-      <h1 class="card-title">Deletar Produto</h1>
-    </div>
-    <div class="card-body">
-      <p>Tem certeza que deseja deletar o produto <strong>{{ object.console }} {{ object.titulo }}</strong>?</p>
-      <form method="post">
-        {% csrf_token %}
-        <div class="buttons-container">
-          <button type="submit" class="btn btn-danger">Deletar Produto</button>
-          <a href="{% url 'prod_update' pk=object.pk %}" class="btn btn-secondary">Cancelar</a>
-        </div>
-      </form>
-    </div>
+<div class="card">
+  <div class="card-header">
+    <h1 class="card-title">Deletar Produto</h1>
   </div>
+  <div class="card-body">
+    <p>Tem certeza que deseja deletar o produto <strong>{{ object.console }} {{ object.titulo }}</strong>?</p>
+    <form method="post">
+      {% csrf_token %}
+      <div class="buttons-container">
+        <button type="submit" class="btn btn-danger">Deletar Produto</button>
+        <a href="{% url 'prod_update' pk=object.pk %}" class="btn btn-secondary">Cancelar</a>
+      </div>
+    </form>
+  </div>
+</div>
 {% endblock %}

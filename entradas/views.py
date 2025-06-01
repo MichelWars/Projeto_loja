@@ -11,6 +11,7 @@ admin_required = user_passes_test(
 )
 
 
+# view para cadastrar entradas
 @method_decorator(admin_required, name='dispatch')
 class EntradaCreateView(CreateView):
     model = models.Entrada
@@ -26,6 +27,7 @@ class EntradaCreateView(CreateView):
         return initial
 
 
+# Lista historico de entradas de produtos
 @method_decorator(admin_required, name='dispatch')
 class EntradaListView(ListView):
     model = models.Entrada
@@ -33,6 +35,7 @@ class EntradaListView(ListView):
     context_object_name = 'entradas'
     paginate_by = 10
 
+    # faz o filtro de pesquisa pelo produto
     def get_queryset(self):
         queryset = super().get_queryset()
         produto = self.request.GET.get('produto')

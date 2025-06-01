@@ -3,8 +3,14 @@ from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
-from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
-                                  TemplateView, UpdateView)
+from django.views.generic import (
+    CreateView,
+    DeleteView,
+    DetailView,
+    ListView,
+    TemplateView,
+    UpdateView,
+)
 
 from produtos.forms import ProdModelForm
 from produtos.models import Produto, ProdutoInventario
@@ -13,6 +19,7 @@ from produtos.models import Produto, ProdutoInventario
 admin_required = user_passes_test(
     lambda u: u.is_staff or u.is_superuser, login_url='login'
 )
+
 
 # view para catalogo
 class ProdutosListView(ListView):
@@ -63,10 +70,12 @@ class ProdutoDeleteView(DeleteView):
     success_url = reverse_lazy('catalogo')
 
 
+# view para estoque/inventario
 @method_decorator(admin_required, name='dispatch')
 class EstoqueView(TemplateView):
     template_name = 'estoque.html'
 
+    # Adiciona os dados que seram exibidos no template
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
@@ -80,7 +89,7 @@ class EstoqueView(TemplateView):
         page_number = self.request.GET.get('page')
         page_obj = paginator.get_page(page_number)
 
-        context['produtos'] = page_obj  # produtos agora é um Page object
-        context['page_obj'] = page_obj  # útil para paginação no template
+        context['produtos'] = page_obj
+        context['page_obj'] = page_obj
 
         return context

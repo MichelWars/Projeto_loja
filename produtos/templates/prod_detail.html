@@ -8,7 +8,7 @@ Detalhes do produto
 {% block content %}
 
 <style>
-    .card {
+  .card {
     background-color: #000000;
     box-shadow: 0 10px 10px rgba(0, 4, 255, 0.2);
     border-radius: 10px;
@@ -29,6 +29,7 @@ Detalhes do produto
   <div class="row justify-content-center">
     <div class="col-md-6">
       <div class="card text-white bg-dark">
+
         {% if object.foto %}
         <img src="{{ object.foto.url }}" class="card-img-top img-fluid" alt="{{ object.titulo }}">
         {% else %}
@@ -52,16 +53,20 @@ Detalhes do produto
           {% endif %}
         </div>
         <div class="card-footer d-flex justify-content-center flex-wrap gap-1">
-            <form onsubmit="event.preventDefault(); adicionarAoCarrinho({{ object.id }});">
-              {% csrf_token %}
-              <button class="btn btn-success" type="submit">Adicionar ao carrinho</button>
-            </form>
+          {% if produto.quantidade == 0 %}
+          <div class="btn btn-danger">Indisponivel no estoque</div>
+          {% else %}
+          <form onsubmit="event.preventDefault(); adicionarAoCarrinho({{ object.id }});">
+            {% csrf_token %}
+            <button class="btn btn-success" type="submit">Adicionar ao carrinho</button>
+          </form>
+          {% endif %}
 
-            {% if user.is_authenticated and user.is_superuser %}
-            <a href="{% url 'prod_update' pk=object.pk %}" class="btn btn-primary">Editar</a>
-            <a href="{% url 'prod_delete' pk=object.pk %}" class="btn btn-danger">Deletar</a>
-            {% endif %}
-          </div>
+          {% if user.is_authenticated and user.is_superuser %}
+          <a href="{% url 'prod_update' pk=object.pk %}" class="btn btn-primary">Editar</a>
+          <a href="{% url 'prod_delete' pk=object.pk %}" class="btn btn-danger">Deletar</a>
+          {% endif %}
+        </div>
       </div>
     </div>
   </div>

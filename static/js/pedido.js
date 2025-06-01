@@ -4,6 +4,8 @@
   const valorParcela = document.getElementById('valor-parcela');
   const valorTotal = parseFloat(document.getElementById('valor-total').innerText.replace(",", "."));
 
+
+  // Função para atualizar o container de parcelas
   function atualizarParcelas() {
     if (formaPagamento.value === 'credito') {
       parcelasContainer.style.display = 'block';
@@ -12,7 +14,7 @@
       valorParcela.innerText = '';
     }
   }
-
+// Função para atualizar o valor por parcela
   parcelasSelect.addEventListener('change', () => {
     const parcelas = parseInt(parcelasSelect.value);
     const valorPorParcela = (valorTotal / parcelas).toFixed(2);

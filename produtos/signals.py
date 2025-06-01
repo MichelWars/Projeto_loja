@@ -10,16 +10,14 @@ from produtos.models import Produto, ProdutoInventario
 def produto_inventario_update():
     # Soma total de todas as quantidades
     contador_produtos = (
-        Produto.objects.aggregate(total_itens=Sum('quantidade'))['total_itens']
-        or 0
+        Produto.objects.aggregate(total_itens=Sum('quantidade'))['total_itens'] or 0
     )
 
     # Soma valor_estoque = quantidade * valor unitário para cada produto
     valor_estoque = (
         Produto.objects.aggregate(
             total_valor=Sum(F('quantidade') * F('valor'))
-        )['total_valor']
-        or 0
+        )['total_valor'] or 0
     )
 
     ProdutoInventario.objects.create(

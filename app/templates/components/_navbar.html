@@ -1,4 +1,3 @@
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
     <!-- Olá, usuário -->
@@ -11,7 +10,7 @@
       <a class="btn btn-outline-primary" disabled>Olá, {{ user.cliente.nome }}</a>
     </span>
     {% else %}
-        <span class="navbar-text me-2">
+    <span class="navbar-text me-2">
       <a class="btn btn-outline-primary" disabled>Bem Vindo(a)!</a>
     </span>
     {% endif %}
@@ -30,26 +29,31 @@
           <a class="btn btn-outline-primary w-100 w-lg-auto text-center" href="{% url 'catalogo' %}">Catálogo</a>
         </li>
         <li class="nav-item me-lg-2">
-          <a class="btn btn-outline-primary w-100 w-lg-auto text-center" href="{% url 'listar_pedidos' %}">Lista de Pedidos</a>
+          <a class="btn btn-outline-primary w-100 w-lg-auto text-center" href="{% url 'listar_pedidos' %}">Lista de
+            Pedidos</a>
         </li>
         <li class="nav-item me-lg-2">
-          <a class="btn btn-outline-primary w-100 w-lg-auto text-center" href="{% url 'cad_prod' %}">Cadastrar Produto</a>
+          <a class="btn btn-outline-primary w-100 w-lg-auto text-center" href="{% url 'cad_prod' %}">Cadastrar
+            Produto</a>
         </li>
         <li class="nav-item me-lg-2">
           <a class="btn btn-outline-primary w-100 w-lg-auto text-center" href="{% url 'estoque' %}">Estoque</a>
         </li>
         <li class="nav-item me-lg-2">
-          <a class="btn btn-outline-primary w-100 w-lg-auto text-center" href="{% url 'entrada_create' %}">Entrada de Mercadorias</a>
+          <a class="btn btn-outline-primary w-100 w-lg-auto text-center" href="{% url 'entrada_create' %}">Entrada de
+            Mercadorias</a>
         </li>
         <li class="nav-item me-lg-2">
-          <a class="btn btn-outline-primary w-100 w-lg-auto text-center" href="{% url 'entrada_historico' %}">Histórico de Entradas</a>
+          <a class="btn btn-outline-primary w-100 w-lg-auto text-center" href="{% url 'entrada_historico' %}">Histórico
+            de Entradas</a>
         </li>
         {% elif user.is_authenticated %}
         <li class="nav-item me-lg-2">
           <a class="btn btn-outline-primary w-100 w-lg-auto text-center" href="{% url 'catalogo' %}">Catálogo</a>
         </li>
         <li class="nav-item me-lg-2">
-          <a class="btn btn-outline-primary w-100 w-lg-auto text-center" href="{% url 'listar_pedidos' %}">Meus Pedidos</a>
+          <a class="btn btn-outline-primary w-100 w-lg-auto text-center" href="{% url 'listar_pedidos' %}">Meus
+            Pedidos</a>
         </li>
         {% else %}
         <li class="nav-item me-lg-2">

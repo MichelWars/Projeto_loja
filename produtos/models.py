@@ -26,7 +26,7 @@ class Produto(models.Model):
     )
     foto = models.ImageField(upload_to='produtos/', blank=True, null=True)
     descricao = models.TextField(blank=True, null=True)
-    quantidade = models.IntegerField(default=0)
+    quantidade = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.titulo
