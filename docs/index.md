@@ -79,4 +79,14 @@ Projeto_loja/
 ├── requirements.txt      # dependências do projeto
 └──  instrucoes.txt       # Instruções de instalação
 
+
+├── Legenda de arquivos:
+│
+├── admin.py              # define as configurações do painel admin do django
+├── forms.py              # criação de formulario para usar nos arquivos html
+├── models.py             # representa as tabelas do banco de dados
+├── signals.py            # monitora eventos no banco de dados e executa ações automaticas pre-determinadas
+├── urls.py               # define as rotas
+└── views.py              # define a logica que exibe dados das models nos templates
+
 ```
