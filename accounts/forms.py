@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
 from .models import Cliente
+from .validar_cpf import validar_cpf
 
 
 # formulario de cadastro de clientes unindo campos da tabela User do django e da tabela Cliente
@@ -57,6 +58,14 @@ class CustomUserCreationForm(forms.ModelForm):
         if User.objects.filter(username=email).exists():
             raise ValidationError('Este e-mail já está em uso.')
         return email
+    
+    def clean_cpf(self):
+        cpf = self.cleaned_data.get('cpf')
+        if validar_cpf(cpf) == False:
+            self.add_error(
+                'cpf', 'CPF Invalido!'
+            )
+        return cpf
 
     def save(self, commit=True):
         email = self.cleaned_data['email']
